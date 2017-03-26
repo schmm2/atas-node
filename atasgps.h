@@ -1,6 +1,9 @@
-#include <vector>
+#include <array>
 #include <gps.h>
 #include <stdlib.h>
+#include <math.h>
+#include <thread>
+
 using namespace std;
 
 #define SERVER "localhost"
@@ -9,12 +12,12 @@ using namespace std;
 class Atasgps
 {
 	private:
+		thread readDataThread;
 		int connectionstate;
-		float longitude;
-		float latitude;
+		array<double,2> location;
 		struct gps_data_t gps_data;
         public:
-                vector<float> getLocation();
+                array<double,2> getLocation();
                 int connect();
                 int close();
 };
