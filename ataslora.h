@@ -26,8 +26,10 @@ static const u1_t PROGMEM APPKEY[16] = { 0xB3, 0x73, 0xC0, 0x31, 0xA0, 0x69, 0xF
 class Ataslora
 {
         private:
-		static uint8_t dataToSend[];
+		// 0; ok; 1; error
+		int state = 0;
         public:
-		void sendData(uint8_t data[]);
+		int getState();
+		void setData(osjob_t* job, uint8_t data[], size_t numberOfChars);
 		int init();
 };
