@@ -12,26 +12,24 @@ int main(){
 	/* connect to gpsd */
 	if(atasgps->connect() == 0){		
 		while(1){
+			// get GPS Data
 			// 0, latitude | 1, longitude
 			gpsLocation = atasgps->getLocation();
-		
-			// convert
 			string longitude = to_string(gpsLocation[0]);
 			string latitude = to_string(gpsLocation[1]);
 
 			// build string 
 			ostringstream oss;
-			oss << "longitude: " << longitude;
+			oss << longitude << "," << latitude;
 			string message = oss.str();
 			
-			// build message -> int array
-			uint8_t dataArray[] = "TESTMESSAGE!";
-//			strcpy( (char*) dataArray, message ); 
-
 			// set data to be send over lora
-			ataslora->setData(&sendDataJob, dataArray, sizeof(dataArray));
-		
-			// run 
+			ataslora->setData(&sendDataJob, message);
+
+			// enable ataslora to send data
+			ataslora->setState(0);	
+	
+			// run, until the next tx succeds
 			while(ataslora->getState() == 0){
 				os_runloop_once();
 			}		
@@ -83,6 +81,7 @@ void onEvent (ev_t ev) {
               printf("Received %d bytes of payload\n", LMIC.dataLen);
 		}		
             digitalWrite(RF_LED_PIN, LOW);
+	ataslora->setState(1);	
         break;
         case EV_LOST_TSYNC:
             printf("EV_LOST_TSYNC\n");

@@ -29,7 +29,8 @@ class Ataslora
 		// 0; ok; 1; error
 		int state = 0;
         public:
+		void setState(int state);
 		int getState();
-		void setData(osjob_t* job, uint8_t data[], size_t numberOfChars);
+		void setData(osjob_t* job, string message);
 		int init();
 };

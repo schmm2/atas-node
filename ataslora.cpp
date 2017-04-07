@@ -14,6 +14,11 @@ const lmic_pinmap lmic_pins = {
 };
 
 
+void Ataslora::setState(int newState){
+        state = newState;
+}
+
+
 int Ataslora::getState(){
 	return state;
 }
@@ -36,15 +41,17 @@ int Ataslora::init(){
 
 }
 
-void Ataslora::setData(osjob_t* job, uint8_t data[], size_t numberOfChars) {
+void Ataslora::setData(osjob_t* job, string messageString) {
     // Check if there is not a current TX/RX job running
     if (LMIC.opmode & OP_TXRXPEND) {
         printf("OP_TXRXPEND, not sending\n");
     } else {
         digitalWrite(RF_LED_PIN, HIGH);
         // Prepare upstream data transmission at the next possible time.
-	printf("%d",sizeof(data) );
-        LMIC_setTxData2(1, data, numberOfChars, 0);
+	
+	// convert string -> unsigned char *
+	unsigned char* message = (unsigned char*)messageString.c_str();
+        LMIC_setTxData2(1, message, messageString.length(), 0);
         printf("Packet queued\n");
     }
 }

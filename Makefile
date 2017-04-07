@@ -39,6 +39,9 @@ ataslora.o: ataslora.cpp
 main.o: main.cpp
 	$(CC) $(CFLAGS) -c $(INCLUDE) $< -o $(BUILDDIR)/main.o
 
+base: ataslora.o atasgps.o main.o
+	$(CC) $(CFLAGS) $(BUILDDIR)/*.o $(LIBS) -o $(BINDIR)/atasservice
+
 all: ataslora.o atasgps.o main.o raspi.o radio.o oslmic.o lmic.o hal.o aes.o
 	$(CC) $(CFLAGS) $(BUILDDIR)/*.o $(LIBS) -o $(BINDIR)/atasservice
 
