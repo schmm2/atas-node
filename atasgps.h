@@ -3,16 +3,16 @@
 #include <stdlib.h>
 #include <math.h>
 #include <thread>
+#include <unistd.h>
 
 using namespace std;
-
-#define SERVER "localhost"
-#define PORT "2947"
 
 class Atasgps
 {
 	private:
-		thread readDataThread;
+		const char* server = "localhost";
+		const char* port = "2947";
+		const int decimalPlaces = 8;		
 		int connectionstate;
 		array<double,2> location;
 		struct gps_data_t gps_data;

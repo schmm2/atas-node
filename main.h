@@ -1,5 +1,8 @@
+// Atas Modules
 #include "atasgps.h"
 #include "ataslora.h"
+#include "atassound.h"
+
 #include <unistd.h>
 #include <string>
 #include <sstream>
@@ -7,11 +10,16 @@
 
 using namespace std;
 
+// Lora
 Ataslora* ataslora;
-Atasgps* atasgps;
-
-array<double,2>  gpsLocation;
-int sleeptime = 20; 
-int atasLoraState = 0;
-
 static osjob_t sendDataJob;
+int txInterval = 20; 
+
+// GPS
+Atasgps* atasgps;
+array<double,2>  gpsLocation;
+
+// Sound
+Atassound* atassound;
+
+int buttonpressed = 0;

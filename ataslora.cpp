@@ -2,7 +2,7 @@
 using namespace std;
 
 void os_getArtEui (u1_t* buf) { memcpy_P(buf, APPEUI, 8);}
-void os_getDevEui (u1_t* buf) { getDevEuiFromMac(buf); }
+void os_getDevEui (u1_t* buf) { memcpy_P(buf, DEVEUI,8); }
 void os_getDevKey (u1_t* buf) {  memcpy_P(buf, APPKEY, 16);}
 
 // Pin mapping
@@ -24,6 +24,9 @@ int Ataslora::getState(){
 }
 
 int Ataslora::init(){
+	printf("ataslora: Keys\n");
+	printKeys();
+
 	 // Init GPIO bcm
     	if (!bcm2835_init()) {
         	fprintf( stderr, "bcm2835_init() Failed\n\n" );
@@ -52,6 +55,6 @@ void Ataslora::setData(osjob_t* job, string messageString) {
 	// convert string -> unsigned char *
 	unsigned char* message = (unsigned char*)messageString.c_str();
         LMIC_setTxData2(1, message, messageString.length(), 0);
-        printf("Packet queued\n");
+        printf("ataslora: packets queued\n");
     }
 }
