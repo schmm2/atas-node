@@ -13,6 +13,6 @@ class Atasbutton
                 bool initialized = false;
         public:
                 void init();
-                uint8_t getState();
+                 uint8_t getState();
 };
 

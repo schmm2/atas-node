@@ -67,26 +67,28 @@ int main(){
 			gpsLocation = atasgps->getLocation();
 
 			// get Button state
-			printf("%d",atasbutton->getState());						
+			buttonPressed =  atasbutton->getState();
+
+			// handle sound
+			if(inDangerzone == 0){
+                                atassound->mute();
+                        }
+                        else if(inDangerzone == 1){
+                                atassound->enable();
+                        }
 
 			// check if we got valid gps data
+			// TODO: find out how "null" works, replace 200
 			if(gpsLocation[0] == 200 & gpsLocation[1] == 200){
 				// try again
-				sleep(20);
 				continue;
 			}
 
 			// build string 
 			ostringstream oss;
 
-			// send gps data
-			if (buttonpressed == 0){
-				oss << to_string(gpsLocation[0]) << "," << to_string(gpsLocation[1]);
-			}
-			// send gps data + alert
-			else{
-				oss << to_string(gpsLocation[0]) << "," << to_string(gpsLocation[1]) << "," << buttonpressed;
-			}
+			// prepare data
+			oss << to_string(gpsLocation[0]) << "," << to_string(gpsLocation[1]) << "," << buttonPressed << "," << inDangerzone;			
 			string message = oss.str();
 
 			// set data to be send over lora
@@ -154,10 +156,10 @@ void onEvent (ev_t ev) {
    			}
 			
 			if(payload == 00){
-				atassound->mute();
+				inDangerzone = 0;
 			}
 			else if(payload == 01){
-				atassound->enable();
+				inDangerzone = 1;
 			}
 		}
             	digitalWrite(RF_LED_PIN, LOW);

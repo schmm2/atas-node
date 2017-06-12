@@ -11,6 +11,8 @@
 
 using namespace std;
 
+uint8_t inDangerzone = 0;
+
 // Lora
 Ataslora* ataslora;
 static osjob_t sendDataJob;
@@ -25,5 +27,4 @@ Atassound* atassound;
 
 // Button Handling
 Atasbutton* atasbutton;
-
-int buttonpressed = 0;
+uint8_t buttonPressed;

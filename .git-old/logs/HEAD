@@ -1,0 +1,9 @@
+0000000000000000000000000000000000000000 76eeb4baab9f0a8888624fe47d3e65a789702e08 schmm2 <tinsu3@gmail.com> 1490480055 +0000	commit (initial): first commit
+76eeb4baab9f0a8888624fe47d3e65a789702e08 a48e1f07c48af0743e5d630268fdf4e7322fb948 schmm2 <tinsu3@gmail.com> 1490480172 +0000	pull: Fast-forward
+a48e1f07c48af0743e5d630268fdf4e7322fb948 1c68d3daafe8fd537c60f1bd835f1eb7f3824aa5 schmm2 <tinsu3@gmail.com> 1490528675 +0000	commit: finish gps
+1c68d3daafe8fd537c60f1bd835f1eb7f3824aa5 d355176dbcfb802b24aed81caa0f385cf63cfa71 schmm2 <tinsu3@gmail.com> 1490913879 +0000	commit: update ataslora
+d355176dbcfb802b24aed81caa0f385cf63cfa71 d857de79a12d46e2f20ab19e72fd12b8317f207e schmm2 <tinsu3@gmail.com> 1491521075 +0000	commit: working example
+d857de79a12d46e2f20ab19e72fd12b8317f207e 9610b509d3eb848f7f869fcf3266acca0d6f1265 schmm2 <tinsu3@gmail.com> 1491523512 +0000	commit: gps data transmit
+9610b509d3eb848f7f869fcf3266acca0d6f1265 3f7bb6dc7228013c9bd0fd4008cbaaf9dff9a797 schmm2 <tinsu3@gmail.com> 1492892673 +0000	commit: add sound ability
+3f7bb6dc7228013c9bd0fd4008cbaaf9dff9a797 917345fda84708810a9a3cf39a167527c13bb608 schmm2 <tinsu3@gmail.com> 1497304377 +0000	commit: start button work
+917345fda84708810a9a3cf39a167527c13bb608 c35f303a72ebe38b9b9acb5ab44cd3f3db9f23ea schmm2 <tinsu3@gmail.com> 1497305290 +0000	commit: improve switch

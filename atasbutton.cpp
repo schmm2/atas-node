@@ -12,8 +12,10 @@ void Atasbutton::init(){
         initialized = true;
 }
 
-uint8_t Atasbutton::getState(){
-	uint8_t value = bcm2835_gpio_lev(BUTTON_PIN);	
+ uint8_t Atasbutton::getState(){
+	uint8_t value = bcm2835_gpio_lev(BUTTON_PIN);		
+	// need to invert as its a pull up circuit, xor operation
+	value = value ^ 1;
         return value;
 }
 
