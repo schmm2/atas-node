@@ -10,10 +10,9 @@ using namespace std;
 class Atasbutton
 {
         private:
-                bool enabled = false;
                 bool initialized = false;
         public:
                 void init();
-                bool getState();
+                uint8_t getState();
 };
 

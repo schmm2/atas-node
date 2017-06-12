@@ -66,9 +66,13 @@ int main(){
 			// 0, latitude | 1, longitude
 			gpsLocation = atasgps->getLocation();
 
+			// get Button state
+			printf("%d",atasbutton->getState());						
+
 			// check if we got valid gps data
 			if(gpsLocation[0] == 200 & gpsLocation[1] == 200){
 				// try again
+				sleep(20);
 				continue;
 			}
 
