@@ -36,16 +36,19 @@ atasgps.o: atasgps.cpp
 ataslora.o: ataslora.cpp
 	$(CC) $(CFLAGS) -c $(INCLUDE) $< -o  $(BUILDDIR)/ataslora.o
 
+atasbutton.o: atasbutton.cpp
+	$(CC) $(CFLAGS) -c $(INCLUDE) $< -o  $(BUILDDIR)/atasbutton.o
+
 atassound.o: atassound.cpp
 	$(CC) $(CFLAGS) -c $(INCLUDE) $< -o  $(BUILDDIR)/atassound.o
 
 main.o: main.cpp
 	$(CC) $(CFLAGS) -c $(INCLUDE) $< -o $(BUILDDIR)/main.o
 
-base: ataslora.o atasgps.o atassound.o main.o 
+base: ataslora.o atasgps.o atassound.o atasbutton.o main.o 
 	$(CC) $(CFLAGS) $(BUILDDIR)/*.o $(LIBS) -o $(BINDIR)/atas-node
 
-all: atassound.o ataslora.o atasgps.o main.o raspi.o radio.o oslmic.o lmic.o hal.o aes.o
+all: atassound.o atasbutton.o ataslora.o atasgps.o main.o raspi.o radio.o oslmic.o lmic.o hal.o aes.o
 	$(CC) $(CFLAGS) $(BUILDDIR)/*.o $(LIBS) -o $(BINDIR)/atas-node
 
 clean:

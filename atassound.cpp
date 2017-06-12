@@ -9,11 +9,13 @@ void Atassound::init(){
 }
 
 void Atassound::mute(){
+	printf("atassound: mute\n");
         enabled = false;
 	bcm2835_pwm_set_data(PWM_CHANNEL, 0);
 }
 
 void Atassound::enable(){
+	printf("atassound: enable\n");
 	if(initialized == false){ return; }
         enabled = true;
 	bcm2835_pwm_set_data(PWM_CHANNEL, 512);

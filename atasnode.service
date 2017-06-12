@@ -1,0 +1,13 @@
+[Unit]
+Description=atas-node daemon
+
+[Service]
+Type=simple
+ExecStart=/usr/local/atas-node/bin/atas-node \
+	--log_file /var/log/atas-node.log
+User=root
+ExecReload=/bin/kill -HUP $MAINPID
+
+
+[Install]
+WantedBy=multi-user.target

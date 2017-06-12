@@ -2,11 +2,55 @@
 
 int main(){
 
+	/* Our process ID and Session ID */
+        //pid_t pid, sid;
+        
+        /* Fork off the parent process */
+        /*pid = fork();
+        if (pid < 0) {
+                exit(EXIT_FAILURE);
+        }*/
+        /* If we got a good PID, then
+           we can exit the parent process. */
+        /*if (pid > 0) {
+                exit(EXIT_SUCCESS);
+        }*/
+
+        /* Change the file mode mask */
+        //umask(0);
+                
+        /* Open any logs here */        
+                
+        /* Create a new SID for the child process */
+        /* sid = setsid();
+        if (sid < 0) { */
+                /* Log the failure */
+         /*       exit(EXIT_FAILURE);
+        }*/
+        
+
+        
+        /* Change the current working directory */
+        /* if ((chdir("/")) < 0) { */
+                /* Log the failure */
+                /* exit(EXIT_FAILURE);
+        }*/
+        
+        /* Close out the standard file descriptors */
+        /*close(STDIN_FILENO);
+        close(STDOUT_FILENO);
+        close(STDERR_FILENO);
+        */
+
+
+	/* Program */
+
 	printf("atas-node: started\n");
 
 	atasgps = new Atasgps();
 	ataslora = new Ataslora();
 	atassound = new Atassound();
+	atasbutton = new Atasbutton();
 
 	// connect to gps
 	if(atasgps->connect() == 0){
@@ -14,11 +58,10 @@ int main(){
 		// init ataslora module
 		ataslora->init();
 		atassound->init();
+		atasbutton->init();
 
 		while(1){
 			
-			atassound->enable();
-
 			// get GPS Data
 			// 0, latitude | 1, longitude
 			gpsLocation = atasgps->getLocation();
@@ -44,7 +87,7 @@ int main(){
 
 			// set data to be send over lora
 			ataslora->setData(&sendDataJob, message);
-
+	
 			// enable ataslora to send data
 			ataslora->setState(0);
 
@@ -99,15 +142,20 @@ void onEvent (ev_t ev) {
 	              	printf("ataslora: received ack\n");
             	if (LMIC.dataLen) {
               		printf("ataslora: received downlink message\n");
-			char str[LMIC.dataLen+1];
-        		str[LMIC.dataLen]='\0'; // Add terminator
-        		memcpy(&str,&(LMIC.frame+LMIC.dataBeg)[0],LMIC.dataLen); 
 
-			string downmsg(str);
-			if(downmsg == "1"){
-				printf("atasalarm: triger alarm\n");
+			// needs cleanup
+			uint8_t payload;
+			for (int i = 0; i < LMIC.dataLen; i++) {
+        			payload = LMIC.frame[LMIC.dataBeg + i];
+   			}
+			
+			if(payload == 00){
+				atassound->mute();
 			}
-		}		
+			else if(payload == 01){
+				atassound->enable();
+			}
+		}
             	digitalWrite(RF_LED_PIN, LOW);
 		ataslora->setState(1);	
         	break;

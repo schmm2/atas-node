@@ -2,6 +2,7 @@
 #include "atasgps.h"
 #include "ataslora.h"
 #include "atassound.h"
+#include "atasbutton.h"
 
 #include <unistd.h>
 #include <string>
@@ -21,5 +22,8 @@ array<double,2>  gpsLocation;
 
 // Sound
 Atassound* atassound;
+
+// Button Handling
+Atasbutton* atasbutton;
 
 int buttonpressed = 0;
