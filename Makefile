@@ -12,6 +12,12 @@ INCLUDE = -I $(LIBDIR)
 
 default: all
 
+ini.o: $(LIBDIR)/inih/ini.c
+	$(CC) $(CFLAGS) -c $(LIBDIR)/inih/ini.c $(INCLUDE) -o $(BUILDDIR)/ini.o
+
+inireader.o: $(LIBDIR)/inih/INIReader.cpp
+	$(CC) $(CFLAGS) -c $(LIBDIR)/inih/INIReader.cpp $(INCLUDE) -o $(BUILDDIR)/INIReader.o
+
 raspi.o: $(LIBDIR)/raspi/raspi.cpp
 	$(CC) $(CFLAGS) -c $(LIBDIR)/raspi/raspi.cpp $(INCLUDE) -o $(BUILDDIR)/raspi.o 	
 
@@ -48,7 +54,7 @@ main.o: main.cpp
 base: ataslora.o atasgps.o atassound.o atasbutton.o main.o 
 	$(CC) $(CFLAGS) $(BUILDDIR)/*.o $(LIBS) -o $(BINDIR)/atas-node
 
-all: atassound.o atasbutton.o ataslora.o atasgps.o main.o raspi.o radio.o oslmic.o lmic.o hal.o aes.o
+all: atassound.o atasbutton.o ataslora.o atasgps.o main.o raspi.o radio.o oslmic.o lmic.o hal.o aes.o ini.o inireader.o
 	$(CC) $(CFLAGS) $(BUILDDIR)/*.o $(LIBS) -o $(BINDIR)/atas-node
 
 clean:

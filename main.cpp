@@ -2,51 +2,26 @@
 
 int main(){
 
-	/* Our process ID and Session ID */
-        //pid_t pid, sid;
-        
-        /* Fork off the parent process */
-        /*pid = fork();
-        if (pid < 0) {
-                exit(EXIT_FAILURE);
-        }*/
-        /* If we got a good PID, then
-           we can exit the parent process. */
-        /*if (pid > 0) {
-                exit(EXIT_SUCCESS);
-        }*/
-
-        /* Change the file mode mask */
-        //umask(0);
-                
-        /* Open any logs here */        
-                
-        /* Create a new SID for the child process */
-        /* sid = setsid();
-        if (sid < 0) { */
-                /* Log the failure */
-         /*       exit(EXIT_FAILURE);
-        }*/
-        
-
-        
-        /* Change the current working directory */
-        /* if ((chdir("/")) < 0) { */
-                /* Log the failure */
-                /* exit(EXIT_FAILURE);
-        }*/
-        
-        /* Close out the standard file descriptors */
-        /*close(STDIN_FILENO);
-        close(STDOUT_FILENO);
-        close(STDERR_FILENO);
-        */
-
-
 	/* Program */
 
-	printf("atas-node: started\n");
+	// read config file atas.ini
+	INIReader reader("atas.ini");
 
+	if (reader.ParseError() < 0) {
+        	std::cout << "Can't load 'atas.ini'\n";
+        	return 1;
+    	}
+
+	version = reader.GetInteger("program", "version", -1);
+	sf = reader.GetInteger("lorawan", "sf", 7);
+	txInterval = reader.GetInteger("lorawan", "txInterval", 20);
+	
+	std::cout << "Config loaded from 'atas.ini': version="
+              << version << ", sf="
+              << sf << ", txInterval="
+              << txInterval << "\n";
+
+	// init components
 	atasgps = new Atasgps();
 	ataslora = new Ataslora();
 	atassound = new Atassound();
@@ -71,10 +46,13 @@ int main(){
 
 			// handle sound
 			if(inDangerzone == 0){
-                                atassound->mute();
-                        }
+				if(atassound->getState() == true){
+	                                atassound->mute();
+        			}
+	                }
                         else if(inDangerzone == 1){
-                                atassound->enable();
+                                printf("PLAY SOUND\n");
+				//atassound->enable();
                         }
 
 			// check if we got valid gps data
@@ -88,7 +66,7 @@ int main(){
 			ostringstream oss;
 
 			// prepare data
-			oss << to_string(gpsLocation[0]) << "," << to_string(gpsLocation[1]) << "," << buttonPressed << "," << inDangerzone;			
+			oss << to_string(gpsLocation[0]) << "," << to_string(gpsLocation[1]) << "," << to_string(buttonPressed) << "," << to_string(inDangerzone);			
 			string message = oss.str();
 
 			// set data to be send over lora
