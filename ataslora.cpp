@@ -35,6 +35,9 @@ void Ataslora::setTxPower(int powerlevel){
 		case 7:
                 dr = DR_SF7;
 		break;
+		default:
+		dr = DR_SF7;
+		break;
 	}
 	// DR_SF12 = 0, DR_SF11 = 1 ...
 	printf("TX Spreadingfactor wil be set to SF%d\n",(12-dr));
