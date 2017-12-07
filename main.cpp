@@ -5,11 +5,10 @@ int main(){
 	/* Program */
 
 	// read config file atas.ini
-	INIReader reader("atas.ini");
+	INIReader reader("/usr/local/atas-node/atas.ini");
 
 	if (reader.ParseError() < 0) {
-        	std::cout << "Can't load 'atas.ini'\n";
-        	return 1;
+		std::cout << "Can't load 'atas.ini'\nUse default values\n";
     	}
 
 	version = reader.GetInteger("program", "version", -1);
@@ -31,7 +30,7 @@ int main(){
 	if(atasgps->connect() == 0){
 
 		// init ataslora module
-		ataslora->init();
+		ataslora->init(sf);
 		atassound->init();
 		atasbutton->init();
 

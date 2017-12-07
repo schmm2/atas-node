@@ -1,5 +1,6 @@
 #include <lmic/lmic.h>
 #include <hal/hal.h>
+#include <lmic/lorabase.h>
 #include <string>
 
 using namespace std;
@@ -29,9 +30,11 @@ class Ataslora
         private:
 		// 0; ok; 1; error
 		int state = 0;
+		int sf;
+		void setTxPower(int powerlevel);
         public:
 		void setState(int state);
 		int getState();
 		void setData(osjob_t* job, string message);
-		int init();
+		int init(int powerlevel);
 };

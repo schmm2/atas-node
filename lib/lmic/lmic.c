@@ -681,7 +681,8 @@ static void setBcnRxParams (void) {
 static void initJoinLoop (void) {
     LMIC.txChnl = os_getRndU1() % 3;
     LMIC.adrTxPow = 14;
-    setDrJoin(DRCHG_SET, DR_SF7);
+    // atas: change to SF12 as default initial SF
+    setDrJoin(DRCHG_SET, DR_SF12);
     initDefaultChannels(1);
     ASSERT((LMIC.opmode & OP_NEXTCHNL)==0);
     LMIC.txend = LMIC.bands[BAND_MILLI].avail + rndDelay(8);
